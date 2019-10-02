@@ -4,13 +4,12 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 public class DummyView implements View{
 
     JFrame frame ;
     
-	ExternView externView = new ExternView();
+	ExternView externView = new ExternView(5);
 	InsideView insideView = new InsideView();
 
     public DummyView() {
@@ -27,6 +26,9 @@ public class DummyView implements View{
         //4. Size the frame.
         frame.pack();
 
+        //
+        frame.setSize(800,500);
+        
         //5. Show it.
         frame.setVisible(true);
     }
@@ -34,31 +36,26 @@ public class DummyView implements View{
 	private void setPanel() {
 		frame.getContentPane().add(externView);
 		frame.getContentPane().add(insideView);
-
 	}
     
     @Override
     public void setElevatorFloor(int floor) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void setExternButtonOn(int floor, int sens) {
-        // TODO Auto-generated method stub
-
+        externView.actionOn(floor, sens);
     }
 
     @Override
     public void setInternButtonOn(int floor) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void setExternButtonOff(int floor, int sens) {
-        // TODO Auto-generated method stub
-
+    	externView.actionOff(floor, sens);
     }
 
     @Override
