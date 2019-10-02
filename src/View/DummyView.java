@@ -10,14 +10,18 @@ public class DummyView implements View{
 
     JFrame frame ;
     
-	ExternView externView = new ExternView(5);
-	InsideView insideView = new InsideView();
+	ExternView externView;
+	InsideView insideView;
 	Cabine cabine = new Cabine();
 	
 	int width = 900, height = 500 ;
 
-    public DummyView() {
+    public DummyView(int nbFloors) {
+
         frame = new JFrame("Frame demo");
+        externView = new ExternView(nbFloors);
+        insideView = new InsideView(nbFloors);
+
         //2. Optional: What happens when the frame closes?
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
