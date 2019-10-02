@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,15 +12,14 @@ public class DummyView implements View{
     
 	ExternView externView = new ExternView(5);
 	InsideView insideView = new InsideView();
+	Cabine cabine = new Cabine();
+	
+	int width = 900, height = 500 ;
 
     public DummyView() {
         frame = new JFrame("Frame demo");
         //2. Optional: What happens when the frame closes?
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        //3. Create components and put them in the frame.
-        //...create emptyLabel...
-        frame.getContentPane().add(new JLabel("Salute"), BorderLayout.CENTER);
 
 		setPanel();
         
@@ -27,14 +27,19 @@ public class DummyView implements View{
         frame.pack();
 
         //
-        frame.setSize(800,500);
+        frame.setSize(this.width, this.height);
         
         //5. Show it.
         frame.setVisible(true);
     }
 
 	private void setPanel() {
+		frame.setLayout(new GridLayout(1, 3));
+		
 		frame.getContentPane().add(externView);
+
+		frame.getContentPane().add(cabine);
+		
 		frame.getContentPane().add(insideView);
 	}
     

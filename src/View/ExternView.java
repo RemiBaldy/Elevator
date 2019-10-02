@@ -17,14 +17,14 @@ public class ExternView extends JPanel {
 	private JButton [] externUpButton ;
 	private JButton [] externDownButton ;
 	
-	public ExternView( int nbEtage) {
+	public ExternView(int nbEtage) {
 		this.nbEtage = nbEtage ;
 		
 		this.externUpButton = new JButton[nbEtage];
 		this.externDownButton = new JButton[nbEtage];
 		
-		this.setLayout(new GridLayout(5,5));
-		this.setSize(new Dimension(800, 500));
+		this.setLayout(new GridLayout(nbEtage, 2));
+		//this.setSize(width, height);
 		
 		for(int i = 0 ; i < 5 ; i ++) {
 			JButton button = new JButton("Etage" + i + " Haut");
