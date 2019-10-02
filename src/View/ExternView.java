@@ -59,22 +59,36 @@ public class ExternView extends JPanel {
 
 	public void actionOn(int floor, int sens) {
 		if(isValidFloor(floor)) {
+			Color onColor = getOnColor();
 			if(sens == 1) {
-				externUpButton[floor].setBackground(Color.RED);
+				externUpButton[floor].setBackground(onColor);
 			}else {
-				externUpButton[floor].setBackground(Color.GRAY);
+				externDownButton[floor].setBackground(onColor);
 			}
 		}
 	}
 
 	public void actionOff(int floor, int sens) {
 		if(isValidFloor(floor)) {
-			
+			Color offColor = getOffColor();
+			if(sens == 1) {
+				externUpButton[floor].setBackground(offColor);
+			}else {
+				externDownButton[floor].setBackground(offColor);
+			}
 		}
 	}
 	
 	private boolean isValidFloor(int floor) {
 		return 0 <= floor && floor < (nbEtage );
+	}
+	
+	private Color getOnColor() {
+		return Color.RED;
+	}
+	
+	private Color getOffColor() {
+		return Color.GRAY;
 	}
 	
 	
