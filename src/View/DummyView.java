@@ -10,8 +10,8 @@ public class DummyView implements View{
 
     JFrame frame ;
     
-	JPanel externView ;
-	JPanel internView ;
+	ExternView externView = new ExternView();
+	InsideView insideView = new InsideView();
 
     public DummyView() {
         frame = new JFrame("Frame demo");
@@ -22,10 +22,6 @@ public class DummyView implements View{
         //...create emptyLabel...
         frame.getContentPane().add(new JLabel("Salute"), BorderLayout.CENTER);
 
-
-		externView = new JPanel();//TODO
-		internView = new JPanel();//TODO
-		
 		setPanel();
         
         //4. Size the frame.
@@ -37,7 +33,7 @@ public class DummyView implements View{
 
 	private void setPanel() {
 		frame.getContentPane().add(externView);
-		frame.getContentPane().add(internView);
+		frame.getContentPane().add(insideView);
 
 	}
     
