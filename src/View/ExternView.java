@@ -98,6 +98,7 @@ public class ExternView extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			JButton srcButton = ((JButton) e.getSource());
 			srcButton.setBackground(getOnColor());
+			srcButton.setForeground(getOnColor());
 		}
 	}
 	
