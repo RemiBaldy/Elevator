@@ -1,14 +1,14 @@
 package View;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.net.URL;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 
 public class ExternView extends JPanel {
@@ -53,7 +53,9 @@ public class ExternView extends JPanel {
 	
 	private JButton buildButton(ImageIcon icon) {
 		JButton button = new JButton(icon);
-		button.setBackground(Color.GRAY);
+		button.setBackground(getOffColor());
+		button.setOpaque(true);
+		button.addActionListener(new ExternButtonListener());
 		return button;
 	}
 
@@ -89,6 +91,14 @@ public class ExternView extends JPanel {
 	
 	private Color getOffColor() {
 		return Color.GRAY;
+	}
+	
+	private class ExternButtonListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JButton srcButton = ((JButton) e.getSource());
+			srcButton.setBackground(getOnColor());
+		}
 	}
 	
 	
