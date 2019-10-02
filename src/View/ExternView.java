@@ -1,9 +1,15 @@
 package View;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.LayoutManager;
+import java.net.URL;
 
 import javax.swing.*;
+
 
 public class ExternView extends JPanel {
 
@@ -23,26 +29,52 @@ public class ExternView extends JPanel {
 		this.externUpButton = new JButton[nbEtage];
 		this.externDownButton = new JButton[nbEtage];
 		
-		this.setLayout(new GridLayout(nbEtage, 2));
-		//this.setSize(width, height);
+		GridLayout layout = new GridLayout(nbEtage,2);
+		layout.setHgap(5);
+		layout.setVgap(10);
+		this.setLayout(layout);
 		
-		for(int i = 0 ; i < 5 ; i ++) {
-			JButton button = new JButton("Etage" + i + " Haut");
-			this.add(button);
-			externUpButton[i] = button ;
+		ImageIcon upArrow = new ImageIcon("images/UpArrow.png");
+		ImageIcon downArrow = new ImageIcon("images/DownArrow.png");
+		upArrow = new ImageIcon(upArrow.getImage().getScaledInstance(90, 90, Image.SCALE_DEFAULT));
+		downArrow = new ImageIcon(downArrow.getImage().getScaledInstance(90, 90, Image.SCALE_DEFAULT));
+		
+		JButton tmpButton ;
+		for(int i = nbEtage - 1 ; i >= 0 ; i --) {
+			tmpButton = buildButton(upArrow);
+			this.add(tmpButton);
+			externUpButton[i] = tmpButton ;
 			
-			JButton button2 = new JButton("Etage" + i + " Bas");
-			this.add(button2);
-			externDownButton[i] = button2 ;
+			tmpButton = buildButton(downArrow);
+			this.add(tmpButton);
+			externDownButton[i] = tmpButton ;
 		}
+	}
+	
+	private JButton buildButton(ImageIcon icon) {
+		JButton button = new JButton(icon);
+		button.setBackground(Color.GRAY);
+		return button;
 	}
 
 	public void actionOn(int floor, int sens) {
-		
+		if(isValidFloor(floor)) {
+			if(sens == 1) {
+				externUpButton[floor].setBackground(Color.RED);
+			}else {
+				externUpButton[floor].setBackground(Color.GRAY);
+			}
+		}
 	}
 
 	public void actionOff(int floor, int sens) {
-		
+		if(isValidFloor(floor)) {
+			
+		}
+	}
+	
+	private boolean isValidFloor(int floor) {
+		return 0 <= floor && floor < (nbEtage );
 	}
 	
 	
