@@ -18,6 +18,7 @@ public class InsideView extends JPanel {
         InsideView insideView = new InsideView();
 
 
+        
 //        experi.add(new JButton("Button 1"));
 //        compsToExperiment.add(new JButton("Button 2"));
 //        compsToExperiment.add(new JButton("Button 3"));
