@@ -4,10 +4,14 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class DummyView implements View{
 
     JFrame frame ;
+    
+	JPanel externView ;
+	JPanel internView ;
 
     public DummyView() {
         frame = new JFrame("Frame demo");
@@ -18,6 +22,12 @@ public class DummyView implements View{
         //...create emptyLabel...
         frame.getContentPane().add(new JLabel("Salute"), BorderLayout.CENTER);
 
+
+		externView = new JPanel();//TODO
+		internView = new JPanel();//TODO
+		
+		setPanel();
+        
         //4. Size the frame.
         frame.pack();
 
@@ -25,6 +35,12 @@ public class DummyView implements View{
         frame.setVisible(true);
     }
 
+	private void setPanel() {
+		frame.getContentPane().add(externView);
+		frame.getContentPane().add(internView);
+
+	}
+    
     @Override
     public void setElevatorFloor(int floor) {
         // TODO Auto-generated method stub
