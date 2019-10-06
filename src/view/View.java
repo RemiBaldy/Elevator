@@ -1,6 +1,11 @@
 
-package View;
+package view;
 
+/**
+ * 
+ * Il s'agit des fonctions que propose la vue pour évoluer.
+ * 
+ */
 public interface View {
 
     /**

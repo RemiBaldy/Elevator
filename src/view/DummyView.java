@@ -1,16 +1,13 @@
-package View;
+package view;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
-
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 public class DummyView implements View{
 
     JFrame frame ;
     
-	ExternView externView;
+	ExternPanel externView;
 	InsideView insideView;
 	Cabine cabine = new Cabine();
 	
@@ -19,7 +16,7 @@ public class DummyView implements View{
     public DummyView(int nbFloors) {
 
         frame = new JFrame("Frame demo");
-        externView = new ExternView(nbFloors);
+        externView = new ExternPanel(nbFloors);
         insideView = new InsideView(nbFloors);
 
         //2. Optional: What happens when the frame closes?
