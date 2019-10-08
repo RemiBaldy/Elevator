@@ -20,9 +20,12 @@ import utility.Order;
 public abstract class OperationnalSystem {
 	public abstract void execute(Order order);
 	
-	protected BaseController controller = ControllerAcessor.getCurrentInstance();
+	// Il faudrat revoir l'ordre de construction pour optimiser ( très léger ) :
+	// protected BaseController controller = ControllerAcessor.getCurrentInstance();
 	
 	protected void notifyController(int newFloor) {
+		// En attendant c'est ici :
+		BaseController controller = ControllerAcessor.getCurrentInstance();
 		controller.handleNewFloorNotification(newFloor);
 	}
 }
