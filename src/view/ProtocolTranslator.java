@@ -19,6 +19,9 @@ public class ProtocolTranslator {
 				return null;
 		}
 	}
+
+
+
 	public static String buildInternRequest(int etage) {
 		return "a-"+etage;
 	}

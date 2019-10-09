@@ -45,7 +45,7 @@ public class BaseController {
 	 * Lorsque le systeme operationnel change d'etage cette fonction sera lancée.
 	 */
 	public void handleNewFloorNotification(int floor) {
-		model.setFloor(floor);(floor);
+		model.setFloor(floor);
 		//Refaire un tour d'algo ?? Peut être facultatif, à voir avec l'arrêt d'urgence.
 	}
 	
