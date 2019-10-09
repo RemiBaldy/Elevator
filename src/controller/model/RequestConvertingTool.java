@@ -10,7 +10,6 @@ public class RequestConvertingTool {
         this.request = request;
     }
 
-
     public Request decryptRequestFromElevator(){
             return new Request(extractSensFromRequest(request),extractFloorFromRequest(request));
     }

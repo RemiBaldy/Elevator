@@ -48,16 +48,16 @@ public class BaseController {
         updateModel(convertedRequest);
 	}
 
+	
     public void updateModel(Request convertedRequest) {
-
-        switch(convertedRequest.sens) {
+    	switch(convertedRequest.sens) {
             case HAUT:
                 model.setUpRequest(convertedRequest.etage,true);
             case BAS:
                 model.setDownRequest(convertedRequest.etage,true);
         }
     }
-	
+
 	/*
 	 * Lorsque le systeme operationnel change d'etage cette fonction sera lancée.
 	 */
