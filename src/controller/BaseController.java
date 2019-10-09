@@ -48,13 +48,12 @@ public class BaseController {
 	}
 
     public void updateModel(Request convertedRequest) {
-
-        switch(convertedRequest.sens) {
-            case HAUT:
+        if(convertedRequest.sens == null)
+        	model.setFloorRequest(convertedRequest.etage, true);
+        else if(convertedRequest.sens == Sens.HAUT)
                 model.setUpRequest(convertedRequest.etage,true);
-            case BAS:
+        else if(convertedRequest.sens == Sens.BAS)
                 model.setDownRequest(convertedRequest.etage,true);
-        }
     }
 	
 	/*
