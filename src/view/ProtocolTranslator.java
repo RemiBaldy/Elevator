@@ -25,7 +25,7 @@ public class ProtocolTranslator {
 	public static String buildInternRequest(int etage) {
 		return "a-"+etage;
 	}
-	public static String buildAlertRequest() {
-		return "AA";
+	public static String buildAlertRequest(int etage) {
+		return "AA"+etage;
 	};
 }
