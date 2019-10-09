@@ -16,7 +16,7 @@ public class DummyElevatorAlgorythm implements ElevatorAlgorythm{
 	
 	@Override
 	public List<Order> compute(Model model) {
-		
+		System.out.println("Computing");
 		Sens sens = model.getSens();
 		floor = model.getFloor();
 		nbFloor = model.getNbFloor();
@@ -46,10 +46,10 @@ public class DummyElevatorAlgorythm implements ElevatorAlgorythm{
 		
 		if(firstRequest > floor) {
 			orders.add(Order.MONTER);
-		}else if (firstRequest < floor) {
+		}else if ( 0 <= firstRequest && firstRequest < floor) {
 			orders.add(Order.DESCENDRE);
-		}else {
-			orders.add(Order.ARRET_PROCHAIN);
+		}else if ( firstRequest == floor){
+			//orders.add(Order.ARRET_PROCHAIN); //Risque de bugger
 		}
 		return orders;
 	}
@@ -66,6 +66,9 @@ public class DummyElevatorAlgorythm implements ElevatorAlgorythm{
 	private List<Order> downCompute() {
 		List<Order> orders = new LinkedList<Order>();
 
+		if(floor == 0) {
+			orders = freeCompute();
+		}
 		if(model.getDownRequest()[floor - 1 ] || model.getFloorRequest()[ floor - 1 ]) {
 			orders.add(Order.ARRET_PROCHAIN);
 		}
@@ -76,6 +79,9 @@ public class DummyElevatorAlgorythm implements ElevatorAlgorythm{
 	private List<Order> upCompute() {
 		List<Order> orders = new LinkedList<Order>();
 		
+		if(floor == nbFloor - 1) {
+			orders = freeCompute();
+		}
 		if(model.getDownRequest()[floor + 1] || model.getFloorRequest()[floor+1]) {
 			orders.add(Order.ARRET_PROCHAIN);
 		}

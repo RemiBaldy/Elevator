@@ -25,13 +25,14 @@ public class BaseController {
 	public void handleUserRequest(String request) {
 		updateModel(request);
 		List<Order> orders = elevatorAlgorythm.compute(model);
-		
+		System.out.println(orders);
 		for(Order order : orders) {
 			if(order==Order.MONTER) model.setSens(Sens.HAUT);
 			if(order==Order.DESCENDRE) model.setSens(Sens.BAS);
 			if(order==Order.ARRET_PROCHAIN) {
 				
 			}
+			
 			operationnalSystem.execute(order);
 		}
 	}

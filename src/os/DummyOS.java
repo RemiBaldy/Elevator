@@ -74,15 +74,15 @@ public class DummyOS extends OperationnalSystem {
 	@Override
 	public void execute(Order order) {
 		//On suppose que l'ordre "MONTER" a été exéctuer il y a 1 sec quant l'ascenseur était au 2ème étage
-		
+		System.out.println("Order");
 		switch(order) {
 		case MONTER:
-			timer.schedule(new MooveTimer(currentFloor + 1), stopTimeMs);
 			currentSens = Sens.HAUT;
+			timer.schedule(new MooveTimer(currentFloor + 1), stopTimeMs);
 			break;
 		case DESCENDRE:
-			timer.schedule(new MooveTimer(currentFloor - 1), stopTimeMs);
 			currentSens = Sens.BAS;
+			timer.schedule(new MooveTimer(currentFloor - 1), stopTimeMs);
 			break;
 		case ARRET_PROCHAIN:
 			if(currentSens == Sens.HAUT)
