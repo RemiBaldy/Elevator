@@ -25,6 +25,7 @@ public class BaseController {
 	
 	public void handleUserRequest(String request) {
 		processRequest(request);
+		System.out.println(model);
 		List<Order> orders = elevatorAlgorythm.compute(model);
 		
 		for(Order order : orders) {
