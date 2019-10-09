@@ -24,7 +24,7 @@ public class RequestConvertingTool {
     private Sens convertSens(String substring) {
         if(substring.equals("m"))
             return Sens.HAUT;
-        else if(substring.equals("a"))
+        else if(substring.equals("d"))
             return Sens.BAS;
         else return null;
     }
