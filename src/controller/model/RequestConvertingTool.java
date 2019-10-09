@@ -20,10 +20,13 @@ public class RequestConvertingTool {
     public Sens extractSensFromRequest(String request){
         return convertSens(request.substring(0,1));
     }
+
     private Sens convertSens(String substring) {
         if(substring.equals("m"))
             return Sens.HAUT;
-        return Sens.BAS;
+        else if(substring.equals("a"))
+            return Sens.BAS;
+        else return null;
     }
 
 }

@@ -26,14 +26,13 @@ public class BaseController {
 	public void handleUserRequest(String request) {
 		processRequest(request);
 		List<Order> orders = elevatorAlgorythm.compute(model);
-		System.out.println(orders);
+		
 		for(Order order : orders) {
 			if(order==Order.MONTER) model.setSens(Sens.HAUT);
 			if(order==Order.DESCENDRE) model.setSens(Sens.BAS);
 			if(order==Order.ARRET_PROCHAIN) {
 				
 			}
-			
 			operationnalSystem.execute(order);
 		}
 	}
@@ -48,16 +47,15 @@ public class BaseController {
         updateModel(convertedRequest);
 	}
 
-	
     public void updateModel(Request convertedRequest) {
-    	switch(convertedRequest.sens) {
-            case HAUT:
+        if(convertedRequest.sens == null)
+        	model.setFloorRequest(convertedRequest.etage, true);
+        else if(convertedRequest.sens == Sens.HAUT)
                 model.setUpRequest(convertedRequest.etage,true);
-            case BAS:
+        else if(convertedRequest.sens == Sens.BAS)
                 model.setDownRequest(convertedRequest.etage,true);
-        }
     }
-
+	
 	/*
 	 * Lorsque le systeme operationnel change d'etage cette fonction sera lancée.
 	 */
