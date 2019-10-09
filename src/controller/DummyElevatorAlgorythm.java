@@ -16,8 +16,8 @@ public class DummyElevatorAlgorythm implements ElevatorAlgorythm{
 	
 	@Override
 	public List<Order> compute(Model model) {
-		System.out.println("Computing");
 		Sens sens = model.getSens();
+		System.out.println("Current Sens : " + sens);
 		floor = model.getFloor();
 		nbFloor = model.getNbFloor();
 		this.model = model ;
@@ -68,6 +68,7 @@ public class DummyElevatorAlgorythm implements ElevatorAlgorythm{
 
 		if(floor == 0) {
 			orders = freeCompute();
+			//Ici
 		}
 		if(model.getDownRequest()[floor - 1 ] || model.getFloorRequest()[ floor - 1 ]) {
 			orders.add(Order.ARRET_PROCHAIN);
@@ -81,8 +82,9 @@ public class DummyElevatorAlgorythm implements ElevatorAlgorythm{
 		
 		if(floor == nbFloor - 1) {
 			orders = freeCompute();
+			//Ici
 		}
-		if(model.getDownRequest()[floor + 1] || model.getFloorRequest()[floor+1]) {
+		if(model.getUpRequest()[floor + 1] || model.getFloorRequest()[floor+1]) {
 			orders.add(Order.ARRET_PROCHAIN);
 		}
 		

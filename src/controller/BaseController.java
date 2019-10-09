@@ -25,9 +25,8 @@ public class BaseController {
 	
 	public void handleUserRequest(String request) {
 		processRequest(request);
-		System.out.println(model);
 		List<Order> orders = elevatorAlgorythm.compute(model);
-		
+		System.out.println(orders);
 		for(Order order : orders) {
 			if(order==Order.MONTER) model.setSens(Sens.HAUT);
 			if(order==Order.DESCENDRE) model.setSens(Sens.BAS);
