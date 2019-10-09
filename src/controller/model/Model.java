@@ -42,20 +42,20 @@ public class Model {
 	public boolean[] getUpRequest() {
 		return upRequest;
 	}
-	public void setUpRequest(boolean[] upRequest) {
-		this.upRequest = upRequest;
+	public void setUpRequest(int i, boolean value) {
+		this.upRequest[i] = value;
 	}
 	public boolean[] getDownRequest() {
 		return downRequest;
 	}
-	public void setDownRequest(boolean[] downRequest) {
-		this.downRequest = downRequest;
+	public void setDownRequest(int i, boolean value) {
+		this.downRequest[i] = value;
 	}
 	public boolean[] getFloorRequest() {
 		return floorRequest;
 	}
-	public void setFloorRequest(boolean[] floorRequest) {
-		this.floorRequest = floorRequest;
+	public void setFloorRequest(int i, boolean value) {
+		this.floorRequest[i] = value;
 	}
 
 	public Sens getSens() {

@@ -26,12 +26,11 @@ public class BaseController {
 		updateModel(request);
 		List<Order> orders = elevatorAlgorythm.compute(model);
 		
-		
 		for(Order order : orders) {
 			if(order==Order.MONTER) model.setSens(Sens.HAUT);
 			if(order==Order.DESCENDRE) model.setSens(Sens.BAS);
 			if(order==Order.ARRET_PROCHAIN) {
-
+				
 			}
 			operationnalSystem.execute(order);
 		}
