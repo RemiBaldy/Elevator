@@ -2,6 +2,8 @@ package controller.model;
 
 import utility.Sens;
 
+import java.util.Arrays;
+
 /**
  * 
  * Model/DB
@@ -12,6 +14,18 @@ public class Model {
 	private boolean downRequest[];
 	private boolean floorRequest[];
 	private int floor = 0;
+
+	@Override
+	public String toString() {
+		return "Model{" +
+				"upRequest=" + Arrays.toString(upRequest) +
+				", downRequest=" + Arrays.toString(downRequest) +
+				", floorRequest=" + Arrays.toString(floorRequest) +
+				", floor=" + floor +
+				", sens=" + sens +
+				'}';
+	}
+
 	private Sens sens = Sens.ARRET;
 	private int nbFloor;
 	private boolean emergencyStop;
