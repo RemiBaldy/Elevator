@@ -1,5 +1,6 @@
 package controller.model;
 
+import controller.Request;
 import utility.Sens;
 
 /**

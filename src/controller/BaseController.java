@@ -3,6 +3,7 @@ package controller;
 import java.util.List;
 
 import controller.model.Model;
+import controller.model.RequestConvertingTool;
 import factories.AlgorythmFactory;
 import os.OperationnalSystem;
 import utility.Order;
@@ -23,7 +24,7 @@ public class BaseController {
 	}
 	
 	public void handleUserRequest(String request) {
-		updateModel(request);
+		processRequest(request);
 		List<Order> orders = elevatorAlgorythm.compute(model);
 		
 		for(Order order : orders) {
@@ -41,9 +42,20 @@ public class BaseController {
 	 * Il faudrat utiliser une autre classe qui déchiffrera le protocol.
 	 * 
 	 */
-	private void updateModel(String request) {
-		
+	private void processRequest(String request) {
+        Request convertedRequest = new RequestConvertingTool(request).decryptRequestFromElevator();
+        updateModel(convertedRequest);
 	}
+
+    public void updateModel(Request convertedRequest) {
+
+        switch(convertedRequest.sens) {
+            case HAUT:
+                model.setUpRequest(convertedRequest.etage,true);
+            case BAS:
+                model.setDownRequest(convertedRequest.etage,true);
+        }
+    }
 	
 	/*
 	 * Lorsque le systeme operationnel change d'etage cette fonction sera lancée.
