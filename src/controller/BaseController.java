@@ -51,9 +51,9 @@ public class BaseController {
         if(convertedRequest.sens == null)
         	model.setFloorRequest(convertedRequest.etage, true);
         else if(convertedRequest.sens == Sens.HAUT)
-                model.setUpRequest(convertedRequest.etage,true);
+        	model.setUpRequest(convertedRequest.etage,true);
         else if(convertedRequest.sens == Sens.BAS)
-                model.setDownRequest(convertedRequest.etage,true);
+        	model.setDownRequest(convertedRequest.etage,true);
     }
 	
 	/*
