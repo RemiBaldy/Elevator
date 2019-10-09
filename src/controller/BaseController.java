@@ -25,9 +25,14 @@ public class BaseController {
 	public void handleUserRequest(String request) {
 		updateModel(request);
 		List<Order> orders = elevatorAlgorythm.compute(model);
+		
+		
 		for(Order order : orders) {
 			if(order==Order.MONTER) model.setSens(Sens.HAUT);
 			if(order==Order.DESCENDRE) model.setSens(Sens.BAS);
+			if(order==Order.ARRET_PROCHAIN) {
+
+			}
 			operationnalSystem.execute(order);
 		}
 	}
@@ -45,7 +50,7 @@ public class BaseController {
 	 * Lorsque le systeme operationnel change d'etage cette fonction sera lancée.
 	 */
 	public void handleNewFloorNotification(int floor) {
-		model.setFloor(floor);(floor);
+		model.setFloor(floor);
 		//Refaire un tour d'algo ?? Peut être facultatif, à voir avec l'arrêt d'urgence.
 	}
 	

@@ -1,6 +1,7 @@
 package os;
 
 import java.util.Timer;
+import java.util.TimerTask;
 
 import utility.Order;
 import utility.Sens;
@@ -17,10 +18,6 @@ import view.View;
 public class DummyOS extends OperationnalSystem {
 
 	
-	private int currentFlow ;
-	private Sens currentSens ;
-	private Timer timer ;
-	private Order lastOrder ;
 	
 	/**
 	 * Elle doit donc travailler avec une vue
@@ -44,34 +41,74 @@ public class DummyOS extends OperationnalSystem {
 	 * Cette classe n'est pas si triviale à coder par rapport aux autres.
 	 * 
 	 */
+
+	//Fin du timer :
+	/*
+	 * view.setElevatorFloor(3);
+	 * notifyController(3);
+	 */
+	//Si une requête a été achevée ( si l'ordre recu a l'étage 2 était arrete toi au prochain ) : 
+	/**
+	 * On rajoute 
+	 * view.setExternButtonOff(3, Sens.HAUT);
+	 * view.setInternButtonOff(3);
+	 */
+		
+	// La principale difficulté est de bien gérer les timers :
+	// Par exemple :
+	/*
+	 * L'ascenseur est à l'étage 2 et recoit "MONTER"
+	 * Il doit être capable d'intercepter l'ordre "ARRETE TOI AU PROCHAIN" entre les deux étages.
+	 * Et bien évidemment l'arret d'urgence :
+	 * foreach etage :
+	 * 		view.setButtonsOff(i).
+	 */
+
+	private int currentFloor ;
+	private Sens currentSens ;
+	private Timer timer ;
+	private Order lastOrder ;
+	
+	private long stopTimeMs = 3000;
+	
 	@Override
 	public void execute(Order order) {
 		//On suppose que l'ordre "MONTER" a été exéctuer il y a 1 sec quant l'ascenseur était au 2ème étage
 		
-		//Fin du timer :
-		/*
-		 * view.setElevatorFloor(3);
-		 * notifyController(3);
-		 */
-		//Si une requête a été achevée ( si l'ordre recu a l'étage 2 était arrete toi au prochain ) : 
-		/**
-		 * On rajoute 
-		 * view.setExternButtonOff(3, Sens.HAUT);
-		 * view.setInternButtonOff(3);
-		 */
+		switch(order) {
+		case MONTER:
+			timer.schedule(new MooveTimer(currentFloor + 1), stopTimeMs);
+			currentSens = Sens.HAUT;
+			break;
+		case DESCENDRE:
+			timer.schedule(new MooveTimer(currentFloor - 1), stopTimeMs);
+			currentSens = Sens.BAS;
+			break;
+		case ARRET_PROCHAIN:
+			if(currentSens == Sens.HAUT)
+			timer.schedule(new MooveTimer(currentFloor + 1 ), stopTimeMs);
 			
-		// La principale difficulté est de bien gérer les timers :
-		// Par exemple :
-		/*
-		 * L'ascenseur est à l'étage 2 et recoit "MONTER"
-		 * Il doit être capable d'intercepter l'ordre "ARRETE TOI AU PROCHAIN" entre les deux étages.
-		 * Et bien évidemment l'arret d'urgence :
-		 * foreach etage :
-		 * 		view.setButtonsOff(i).
-		 */
+		default:
+			break;
+		}
+
+	}
+
+	private class MooveTimer extends TimerTask{
+		
+		private int floor ;
+		
+		public MooveTimer(int floor) {
+			this.floor = floor ;
+		}
+		
+		@Override
+		public void run() {
+			view.setElevatorFloor(floor);
+			notifyController(floor);
+		}
 		
 	}
-	
 	
 
 }
