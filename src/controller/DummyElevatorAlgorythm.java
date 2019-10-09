@@ -18,15 +18,22 @@ public class DummyElevatorAlgorythm implements ElevatorAlgorythm{
 	public List<Order> compute(Model model) {
 		
 		Sens sens = model.getSens();
-		floor = model.getEtage();
+		floor = model.getFloor();
 		nbFloor = model.getNbFloor();
 		this.model = model ;
+		
+		if(model.isEmergencyStop()) {
+			List<Order> orders = new LinkedList<Order>();
+			orders.add(Order.ARRET_URGENT);
+		}
 		
 		switch (sens) {
 		case HAUT:
 			return upCompute();
 		case BAS:
 			return downCompute();
+		case ARRET:
+			return freeCompute();
 		default:
 			return freeCompute();
 		}
@@ -35,12 +42,25 @@ public class DummyElevatorAlgorythm implements ElevatorAlgorythm{
 	private List<Order> freeCompute() {
 		List<Order> orders = new LinkedList<Order>();
 		
-		//FindFirstRequest
-		//orders add Sens 
-		// if ( firstRequest == +-1 floor )
-		//   -> orders add ArretProchain
+		int firstRequest = findFirstRequest();
 		
+		if(firstRequest > floor) {
+			orders.add(Order.MONTER);
+		}else if (firstRequest < floor) {
+			orders.add(Order.DESCENDRE);
+		}else {
+			orders.add(Order.ARRET_PROCHAIN);
+		}
 		return orders;
+	}
+
+	private int findFirstRequest() {
+		for(int i = 0 ; i < nbFloor ; i ++) {
+			if(model.getDownRequest()[i] || model.getUpRequest()[i]) {
+				return i ;
+			}
+		}
+		return -1 ;
 	}
 
 	private List<Order> downCompute() {

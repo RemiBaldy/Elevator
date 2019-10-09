@@ -14,7 +14,24 @@ public class Model {
 	private int floor = 0;
 	private Sens sens = Sens.ARRET;
 	private int nbFloor;
+	private boolean emergencyStop;
 	
+	public int getFloor() {
+		return floor;
+	}
+
+	public void setFloor(int floor) {
+		this.floor = floor;
+	}
+
+	public boolean isEmergencyStop() {
+		return emergencyStop;
+	}
+
+	public void setEmergencyStop(boolean emergencyStop) {
+		this.emergencyStop = emergencyStop;
+	}
+
 	public Model(int nbFloor) {
 		this.nbFloor = nbFloor ;
 		this.upRequest = new boolean[nbFloor];
@@ -40,12 +57,7 @@ public class Model {
 	public void setFloorRequest(boolean[] floorRequest) {
 		this.floorRequest = floorRequest;
 	}
-	public int getEtage() {
-		return floor;
-	}
-	public void setEtage(int etage) {
-		this.floor = etage;
-	}
+
 	public Sens getSens() {
 		return sens;
 	}

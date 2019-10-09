@@ -1,9 +1,12 @@
 package controller;
 
+import java.util.List;
+
 import controller.model.Model;
 import factories.AlgorythmFactory;
 import os.OperationnalSystem;
 import utility.Order;
+import utility.Sens;
 
 public class BaseController {
 
@@ -21,8 +24,12 @@ public class BaseController {
 	
 	public void handleUserRequest(String request) {
 		updateModel(request);
-		Order order = elevatorAlgorythm.compute(model);
-		operationnalSystem.execute(order);
+		List<Order> orders = elevatorAlgorythm.compute(model);
+		for(Order order : orders) {
+			if(order==Order.MONTER) model.setSens(Sens.HAUT);
+			if(order==Order.DESCENDRE) model.setSens(Sens.BAS);
+			operationnalSystem.execute(order);
+		}
 	}
 	
 	/**
@@ -38,7 +45,7 @@ public class BaseController {
 	 * Lorsque le systeme operationnel change d'etage cette fonction sera lancée.
 	 */
 	public void handleNewFloorNotification(int floor) {
-		model.setEtage(floor);
+		model.setFloor(floor);(floor);
 		//Refaire un tour d'algo ?? Peut être facultatif, à voir avec l'arrêt d'urgence.
 	}
 	
