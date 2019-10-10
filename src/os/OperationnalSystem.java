@@ -23,9 +23,9 @@ public abstract class OperationnalSystem {
 	// Il faudrat revoir l'ordre de construction pour optimiser ( très léger ) :
 	// protected BaseController controller = ControllerAcessor.getCurrentInstance();
 	
-	protected void notifyController(int newFloor) {
+	protected void notifyController() {
 		// En attendant c'est ici :
 		BaseController controller = ControllerAcessor.getCurrentInstance();
-		controller.handleNewFloorNotification(newFloor);
+		controller.handleNewFloorNotification();
 	}
 }

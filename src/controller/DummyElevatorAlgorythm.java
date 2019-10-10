@@ -13,82 +13,95 @@ public class DummyElevatorAlgorythm implements ElevatorAlgorythm{
 	private int nbFloor ;
 	private Model model ;
 	
+	private List<Order> orders ;
 	
 	@Override
 	public List<Order> compute(Model model) {
+		
+		orders = new LinkedList<Order>();
+		
 		Sens sens = model.getSens();
 		System.out.println("Current Sens : " + sens);
 		floor = model.getFloor();
 		nbFloor = model.getNbFloor();
 		this.model = model ;
 		
+		
 		if(model.isEmergencyStop()) {
-			List<Order> orders = new LinkedList<Order>();
 			orders.add(Order.ARRET_URGENT);
-		}
-		
-		switch (sens) {
-		case HAUT:
-			return upCompute();
-		case BAS:
-			return downCompute();
-		case ARRET:
-			return freeCompute();
-		default:
-			return freeCompute();
-		}
-	}
-
-	private List<Order> freeCompute() {
-		List<Order> orders = new LinkedList<Order>();
-		
-		int firstRequest = findFirstRequest();
-		
-		if(firstRequest > floor) {
-			orders.add(Order.MONTER);
-		}else if ( 0 <= firstRequest && firstRequest < floor) {
-			orders.add(Order.DESCENDRE);
-		}else if ( firstRequest == floor){
-			//orders.add(Order.ARRET_PROCHAIN); //Risque de bugger
+		}else {
+			int nextFloorStop ;
+			switch(sens) {
+			case BAS:
+				nextFloorStop = findNextFloorStop(floor - 1);
+				computeNextStopIntoOrders(nextFloorStop);
+				break;
+			case HAUT:
+				nextFloorStop = findNextFloorStop(floor + 1);
+				computeNextStopIntoOrders(nextFloorStop);
+				break;
+			default:
+				nextFloorStop = findNextFloorStop(floor);
+				computeNextStopIntoOrders(nextFloorStop);
+				break;
+			}
 		}
 		return orders;
 	}
 
-	private int findFirstRequest() {
-		for(int i = 0 ; i < nbFloor ; i ++) {
-			if(model.getDownRequest()[i] || model.getUpRequest()[i]) {
-				return i ;
+	private void computeNextStopIntoOrders(int nextFloorStop){
+		if(nextFloorStop < floor) {
+			orders.add(Order.DESCENDRE);
+			if(nextFloorStop == floor - 1) {
+				orders.add(Order.ARRET_PROCHAIN);
 			}
+		}else if(nextFloorStop > floor) {
+			orders.add(Order.MONTER);
+			if(nextFloorStop == floor + 1) {
+				orders.add(Order.ARRET_PROCHAIN);
+			}
+		}
+	}
+	
+	private int findNextFloorStop(int floor) {
+		switch(model.getSens()) {
+		case BAS:
+			return downCompute(floor);
+		default:
+			return upCompute(floor);
+		}
+	}
+
+	private int downCompute(int start) {
+		for(int i = start ; i >= 0 ; i --) {
+			if(model.getDownRequest()[i] || model.getFloorRequest()[i]) 
+				return i;
+		}
+		for(int i = 0 ; i < nbFloor ; i ++) {
+			if(model.getUpRequest()[i] || model.getFloorRequest()[i])
+				return i ;
+		}
+		for(int i = nbFloor - 1 ; i > start ; i --) {
+			if(model.getDownRequest()[i] || model.getFloorRequest()[i])
+				return i;
 		}
 		return -1 ;
 	}
 
-	private List<Order> downCompute() {
-		List<Order> orders = new LinkedList<Order>();
-
-		if(floor == 0) {
-			orders = freeCompute();
-			//Ici
+	private int upCompute(int start) {
+		for(int i = start ; i < nbFloor ; i ++) {
+			if(model.getUpRequest()[i] || model.getFloorRequest()[i]) 
+				return i;
 		}
-		if(model.getDownRequest()[floor - 1 ] || model.getFloorRequest()[ floor - 1 ]) {
-			orders.add(Order.ARRET_PROCHAIN);
+		for(int i = nbFloor - 1 ; i >= 0 ; i --) {
+			if(model.getDownRequest()[i] || model.getFloorRequest()[i])
+				return i ;
 		}
-		
-		return orders;
-	}
-
-	private List<Order> upCompute() {
-		List<Order> orders = new LinkedList<Order>();
-		
-		if(floor == nbFloor - 1) {
-			orders = freeCompute();
-			//Ici
+		for(int i = 0 ; i < start ; i ++) {
+			if(model.getUpRequest()[i] || model.getFloorRequest()[i])
+				return i;
 		}
-		if(model.getUpRequest()[floor + 1] || model.getFloorRequest()[floor+1]) {
-			orders.add(Order.ARRET_PROCHAIN);
-		}
-		
-		return orders;
+		return -1 ;
 	}
 	
 }

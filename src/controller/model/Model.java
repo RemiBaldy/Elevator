@@ -13,7 +13,26 @@ public class Model {
 	private boolean upRequest[];
 	private boolean downRequest[];
 	private boolean floorRequest[];
-	private int floor = 0;
+	private int floor = 1;
+	
+	private int maxRequest ;
+	public int getMaxRequest() {
+		return maxRequest;
+	}
+
+	public void setMaxRequest(int maxRequest) {
+		this.maxRequest = maxRequest;
+	}
+
+	public int getMinRequest() {
+		return minRequest;
+	}
+
+	public void setMinRequest(int minRequest) {
+		this.minRequest = minRequest;
+	}
+
+	private int minRequest ;
 
 	@Override
 	public String toString() {
@@ -51,6 +70,8 @@ public class Model {
 		this.upRequest = new boolean[nbFloor];
 		this.downRequest = new boolean[nbFloor];
 		this.floorRequest = new boolean[nbFloor];
+		this.maxRequest = 0 ;
+		this.minRequest = nbFloor - 1 ;
 	}
 	
 	public boolean[] getUpRequest() {

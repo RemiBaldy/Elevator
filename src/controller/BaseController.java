@@ -48,6 +48,12 @@ public class BaseController {
 	}
 
     public void updateModel(Request convertedRequest) {
+    	if(convertedRequest.etage > model.getMaxRequest()) {
+    		model.setMaxRequest(convertedRequest.etage);
+    	}
+    	if(convertedRequest.etage < model.getMinRequest()) {
+    		model.setMinRequest(convertedRequest.etage);
+    	}
         if(convertedRequest.sens == null)
         	model.setFloorRequest(convertedRequest.etage, true);
         else if(convertedRequest.sens == Sens.HAUT)
@@ -58,10 +64,10 @@ public class BaseController {
 	
 	/*
 	 * Lorsque le systeme operationnel change d'etage cette fonction sera lancée.
+	 * 
 	 */
-	public void handleNewFloorNotification(int floor) {
-		model.setFloor(floor);
-		//Refaire un tour d'algo ?? Peut être facultatif, à voir avec l'arrêt d'urgence.
+	public void handleNewFloorNotification() {
+		//MAJ MODEL+ tour algo + execute.
 	}
 	
 	

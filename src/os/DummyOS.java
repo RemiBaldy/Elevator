@@ -105,7 +105,8 @@ public class DummyOS extends OperationnalSystem {
 		@Override
 		public void run() {
 			view.setElevatorFloor(floor);
-			notifyController(floor);
+			//A la fin du chrono le nouvel étage devrait etre franchi
+			notifyController();
 		}
 		
 	}
