@@ -30,9 +30,6 @@ public class BaseController {
 		for(Order order : orders) {
 			if(order==Order.MONTER) model.setSens(Sens.HAUT);
 			if(order==Order.DESCENDRE) model.setSens(Sens.BAS);
-			if(order==Order.ARRET_PROCHAIN) {
-				
-			}
 			operationnalSystem.execute(order);
 		}
 	}
@@ -48,12 +45,17 @@ public class BaseController {
 	}
 
     public void updateModel(Request convertedRequest) {
-    	if(convertedRequest.etage > model.getMaxRequest()) {
-    		model.setMaxRequest(convertedRequest.etage);
-    	}
-    	if(convertedRequest.etage < model.getMinRequest()) {
-    		model.setMinRequest(convertedRequest.etage);
-    	}
+    	/*
+    	 * 
+    	 * Utile seulement pour coupure de l'algo
+    	 * 
+    	 * if(convertedRequest.etage > model.getMaxRequest()) {
+    	 *	model.setMaxRequest(convertedRequest.etage);
+    	 * }
+    	 * if(convertedRequest.etage < model.getMinRequest()) {
+    	 * 	model.setMinRequest(convertedRequest.etage);
+    	 * }
+    	 * */
         if(convertedRequest.sens == null)
         	model.setFloorRequest(convertedRequest.etage, true);
         else if(convertedRequest.sens == Sens.HAUT)
@@ -67,7 +69,10 @@ public class BaseController {
 	 * 
 	 */
 	public void handleNewFloorNotification() {
-		//MAJ MODEL+ tour algo + execute.
+		//MAJ MODEL
+		// <-> déduire si étage + ou - 1
+		//Tour algo 
+		//execute
 	}
 	
 	
