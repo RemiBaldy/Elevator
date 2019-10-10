@@ -29,10 +29,7 @@ public class DummyOS extends OperationnalSystem {
 	
 	/**
 	 * Met à jour le dernier ordre qui lui a été envoyé.
-	 * 
-	 * On pourra faire des maths pour savoir ou est précisemment l'acsenseur entre deux étages
-	 * A part pour une simulation de la vue plus précise, ce n'est pas très iomportant car normalement les capteurs seront indépendants.
-	 * 
+	 *  
 	 * Il faudrait prévenir le controller lorsque l'ascenseur atteind un nouvel étage ( super.notifyController(newFloor) ).
 	 * 
 	 * Et bien sur la vue qu'on souhaite simuler ( en plus des reqûetes accomplie pour éteindre les boutons ).
@@ -91,7 +88,6 @@ public class DummyOS extends OperationnalSystem {
 		default:
 			break;
 		}*/
-
 	}
 
 	private class MooveTimer extends TimerTask{
@@ -105,7 +101,6 @@ public class DummyOS extends OperationnalSystem {
 		@Override
 		public void run() {
 			view.setElevatorFloor(floor);
-			//A la fin du chrono le nouvel étage devrait etre franchi
 			notifyController();
 		}
 		

@@ -50,12 +50,8 @@ public class InsideView extends JPanel {
         }
     }*/
 
-    private void buttonPressed(JButton b) {
-        //TODO
-        //Notify controler when button is pressed
-    }
 
-    private void buttonRealease(int floor){
+    public void buttonRealease(int floor){
         buttons[floor].setBackground(Color.LIGHT_GRAY);
     }
 

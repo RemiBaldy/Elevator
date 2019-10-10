@@ -13,7 +13,7 @@ public class Model {
 	private boolean upRequest[];
 	private boolean downRequest[];
 	private boolean floorRequest[];
-	private int floor = 1;
+	private int floor = 0;
 	
 	private int maxRequest ;
 	public int getMaxRequest() {
