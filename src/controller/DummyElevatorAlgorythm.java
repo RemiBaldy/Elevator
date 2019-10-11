@@ -15,6 +15,8 @@ public class DummyElevatorAlgorythm implements ElevatorAlgorythm{
 	
 	private List<Order> orders ;
 	
+	private Order lastOrderCache ;
+	
 	@Override
 	public List<Order> compute(Model model) {
 		
@@ -41,24 +43,38 @@ public class DummyElevatorAlgorythm implements ElevatorAlgorythm{
 				computeNextStopIntoOrders(nextFloorStop);
 				break;
 			default:
-				nextFloorStop = findNextFloorStop(floor);
+				nextFloorStop = findNextFloorStop(floor + 1);
 				computeNextStopIntoOrders(nextFloorStop);
 				break;
 			}
 		}
+		
+		updateCache();
+		
 		return orders;
 	}
 
+
 	private void computeNextStopIntoOrders(int nextFloorStop){
 		if(nextFloorStop < floor) {
-			orders.add(Order.DESCENDRE);
+			if(model.getSens() != Sens.BAS) {
+				orders.add(Order.DESCENDRE);				
+			}
 			if(nextFloorStop == floor - 1) {
-				orders.add(Order.ARRET_PROCHAIN);
+				if(lastOrderCache != Order.ARRET_PROCHAIN)
+					orders.add(Order.ARRET_PROCHAIN);
+			}else if(lastOrderCache == Order.ARRET_PROCHAIN){
+				orders.add(Order.DESCENDRE);
 			}
 		}else if(nextFloorStop > floor) {
-			orders.add(Order.MONTER);
+			if(model.getSens() != Sens.HAUT) {
+				orders.add(Order.MONTER);
+			}			
 			if(nextFloorStop == floor + 1) {
-				orders.add(Order.ARRET_PROCHAIN);
+				if(lastOrderCache != Order.ARRET_PROCHAIN)
+					orders.add(Order.ARRET_PROCHAIN);
+			}else if(lastOrderCache == Order.ARRET_PROCHAIN) {
+				orders.add(Order.MONTER);
 			}
 		}
 	}
@@ -88,7 +104,7 @@ public class DummyElevatorAlgorythm implements ElevatorAlgorythm{
 		return -1 ;
 	}
 
-	private int upCompute(int start) {
+	private int upCompute(int start) {System.out.println("UpCompute");
 		for(int i = start ; i < nbFloor ; i ++) {
 			if(model.getUpRequest()[i] || model.getFloorRequest()[i]) 
 				return i;
@@ -102,6 +118,13 @@ public class DummyElevatorAlgorythm implements ElevatorAlgorythm{
 				return i;
 		}
 		return -1 ;
+	}
+	
+
+	private void updateCache() {
+		int size = orders.size();
+		if(size > 0)
+			lastOrderCache = orders.get(size - 1);
 	}
 	
 }
