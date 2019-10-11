@@ -54,7 +54,14 @@ public class DummyElevatorAlgorythm implements ElevatorAlgorythm{
 		return orders;
 	}
 
-
+	
+	/**
+	 * Déduit les ordres a envoyer en fonctions :
+	 * - du prochain étage où s'arréter, 
+	 * - du dernier ordre envoyé,
+	 * - de l'étage où se trouve l'ascenseur.
+	 * @param nextFloorStop
+	 */
 	private void computeNextStopIntoOrders(int nextFloorStop){
 		if(0<= nextFloorStop && nextFloorStop < floor) {
 			if(model.getSens() != Sens.BAS) {
@@ -79,6 +86,11 @@ public class DummyElevatorAlgorythm implements ElevatorAlgorythm{
 		}
 	}
 	
+	/**
+	 * 
+	 * @param floor
+	 * @return le prochain étage ou s'arréter
+	 */
 	private int findNextFloorStop(int floor) {
 		switch(model.getSens()) {
 		case BAS:
