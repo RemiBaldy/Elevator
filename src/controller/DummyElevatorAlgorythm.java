@@ -56,7 +56,7 @@ public class DummyElevatorAlgorythm implements ElevatorAlgorythm{
 
 
 	private void computeNextStopIntoOrders(int nextFloorStop){
-		if(nextFloorStop < floor) {
+		if(0<= nextFloorStop && nextFloorStop < floor) {
 			if(model.getSens() != Sens.BAS) {
 				orders.add(Order.DESCENDRE);				
 			}
